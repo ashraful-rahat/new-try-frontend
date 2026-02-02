@@ -1,12 +1,8 @@
 "use client";
 import { ArrowRight, UserPlus } from "lucide-react";
-import { useState } from "react";
 import { useRegister } from "./register";
 
 export default function RegisterPage() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
   const {
     email,
     setEmail,
@@ -25,11 +21,9 @@ export default function RegisterPage() {
       <div className="absolute inset-0 bg-linear-to-br from-red-400/10 via-green-400/10 to-red-500/10"></div>
 
       <div className="relative w-full max-w-md bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden border border-white/30">
-        <div className="relative h-32 bg-linear-to-r from-red-500 via-green-600 to-red-500 overflow-hidden">
+        <div className="relative h-32 bg-linear-to-r from-red-500 via-green-600 to-red-500">
           <div className="absolute bottom-4 left-0 right-0 text-center">
-            <h1 className="text-2xl font-bold text-white drop-shadow-lg">
-              একাউন্ট তৈরি করুন
-            </h1>
+            <h1 className="text-2xl font-bold text-white">একাউন্ট তৈরি করুন</h1>
             <p className="text-white/90 text-sm">কয়েকটি সহজ ধাপে যুক্ত হোন</p>
           </div>
         </div>
@@ -42,37 +36,33 @@ export default function RegisterPage() {
             }}
             className="space-y-6"
           >
-            {/* Email */}
             <input
               type="email"
               placeholder="আপনার ইমেইল দিন"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-lg"
+              className="w-full pl-4 py-3 bg-gray-50 border rounded-lg"
               required
             />
 
-            {/* Password */}
             <input
-              type={showPassword ? "text" : "password"}
+              type="password"
               placeholder="শক্তিশালী পাসওয়ার্ড দিন"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full pl-12 pr-12 py-3 bg-gray-50 border border-gray-300 rounded-lg"
+              className="w-full pl-4 py-3 bg-gray-50 border rounded-lg"
               required
             />
 
-            {/* Confirm Password */}
             <input
-              type={showConfirmPassword ? "text" : "password"}
+              type="password"
               placeholder="পুনরায় পাসওয়ার্ড দিন"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full pl-12 pr-12 py-3 bg-gray-50 border border-gray-300 rounded-lg"
+              className="w-full pl-4 py-3 bg-gray-50 border rounded-lg"
               required
             />
 
-            {/* Messages */}
             {error && (
               <p className="text-sm text-red-600 font-medium">{error}</p>
             )}
@@ -80,7 +70,6 @@ export default function RegisterPage() {
               <p className="text-sm text-green-600 font-medium">{success}</p>
             )}
 
-            {/* Register Button */}
             <button
               type="submit"
               disabled={loading}
