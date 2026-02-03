@@ -1,16 +1,19 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL, //
-  timeout: 100000, // 100 seconds
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api",
+  timeout: 30000,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
-// Request interceptor to add token automatically
+// Request interceptor
 axiosInstance.interceptors.request.use(
   (config) => {
     if (typeof window !== "undefined") {
-      // make sure it's running in browser
-      const token = localStorage.getItem("token");
+      const token =
+        localStorage.getItem("token") || localStorage.getItem("adminToken");
       if (token && config.headers) {
         config.headers["Authorization"] = `Bearer ${token}`;
       }
@@ -18,19 +21,52 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (error) => {
+    console.log("Request Error:", error.message);
     return Promise.reject(error);
-  }
+  },
 );
 
-// Optional: response interceptor for global error handling
+// Response interceptor - SIMPLIFIED VERSION
 axiosInstance.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // শুধু সফল রেসপন্স রিটার্ন করুন
+    return response;
+  },
   (error) => {
-    if (error.response) {
-      console.error("API Error:", error.response.data);
+    // Error handle করুন
+    let errorMessage = "সার্ভারে সমস্যা";
+
+    if (error.code === "ECONNREFUSED") {
+      errorMessage = "সার্ভার চালু নেই। Backend চালু করুন।";
+    } else if (error.code === "NETWORK_ERROR") {
+      errorMessage = "নেটওয়ার্ক সমস্যা";
+    } else if (error.response) {
+      // সার্ভার রেসপন্স দিয়েছে
+      errorMessage =
+        error.response.data?.message || `সার্ভার এরর: ${error.response.status}`;
+    } else if (error.request) {
+      // রিকুয়েস্ট পাঠানো হয়েছে কিন্তু রেসপন্স আসেনি
+      errorMessage = "সার্ভার রেসপন্স দেয়নি";
     }
-    return Promise.reject(error);
-  }
+
+    // Error object create করুন
+    const customError = new Error(errorMessage);
+
+    customError.status = error.response?.status;
+
+    customError.data = error.response?.data;
+
+    // Development mode তে শুধু log দেখান
+    if (process.env.NODE_ENV === "development") {
+      console.log("API Error Info:", {
+        message: errorMessage,
+        status: error.response?.status,
+        url: error.config?.url,
+      });
+    }
+
+    return Promise.reject(customError);
+  },
 );
 
 export default axiosInstance;
