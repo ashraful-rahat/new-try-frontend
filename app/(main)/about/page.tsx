@@ -22,7 +22,7 @@ import {
   Users,
 } from "lucide-react";
 import Image from "next/image";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 
 const AboutPage = () => {
   const containerRef = useRef(null);
@@ -33,6 +33,25 @@ const AboutPage = () => {
 
   const headerOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const headerScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
+
+  // Generate stable particle positions using useMemo
+  const heroParticles = useMemo(() => {
+    return Array.from({ length: 20 }, (_, i) => ({
+      left: (i * 5.3 + 7.3) % 100,
+      top: (i * 7.9 + 3.2) % 100,
+      duration: 3 + (i % 5) * 0.4,
+      delay: (i % 4) * 0.5,
+    }));
+  }, []);
+
+  const contactParticles = useMemo(() => {
+    return Array.from({ length: 15 }, (_, i) => ({
+      left: (i * 6.7 + 12.3) % 100,
+      top: (i * 8.4 + 5.6) % 100,
+      duration: 4 + (i % 3) * 0.7,
+      delay: (i % 3) * 0.7,
+    }));
+  }, []);
 
   // Fixed Animation variants with proper typing
   const fadeInUp: Variants = {
@@ -226,28 +245,24 @@ const AboutPage = () => {
             }}
           />
 
-          {/* Floating particles */}
+          {/* Floating particles with stable positions */}
           <div className="absolute inset-0">
-            {[...Array(20)].map((_, i) => (
+            {heroParticles.map((particle, i) => (
               <motion.div
                 key={i}
                 className="absolute w-2 h-2 bg-white/20 rounded-full"
                 style={{
-                  // eslint-disable-next-line react-hooks/purity
-                  left: `${Math.random() * 100}%`,
-                  // eslint-disable-next-line react-hooks/purity
-                  top: `${Math.random() * 100}%`,
+                  left: `${particle.left}%`,
+                  top: `${particle.top}%`,
                 }}
                 animate={{
                   y: [0, -30, 0],
                   opacity: [0.2, 0.5, 0.2],
                 }}
                 transition={{
-                  // eslint-disable-next-line react-hooks/purity
-                  duration: 3 + Math.random() * 2,
+                  duration: particle.duration,
                   repeat: Infinity,
-                  // eslint-disable-next-line react-hooks/purity
-                  delay: Math.random() * 2,
+                  delay: particle.delay,
                 }}
               />
             ))}
@@ -913,28 +928,24 @@ const AboutPage = () => {
         id="contact"
         className="py-24 bg-linear-to-br from-[#006A4E] via-emerald-700 to-[#F42A41] relative overflow-hidden"
       >
-        {/* Animated background elements */}
+        {/* Animated background elements with stable positions */}
         <div className="absolute inset-0">
-          {[...Array(15)].map((_, i) => (
+          {contactParticles.map((particle, i) => (
             <motion.div
               key={i}
               className="absolute w-4 h-4 bg-white/10 rounded-full"
               style={{
-                // eslint-disable-next-line react-hooks/purity
-                left: `${Math.random() * 100}%`,
-                // eslint-disable-next-line react-hooks/purity
-                top: `${Math.random() * 100}%`,
+                left: `${particle.left}%`,
+                top: `${particle.top}%`,
               }}
               animate={{
                 y: [0, -40, 0],
                 opacity: [0.2, 0.6, 0.2],
               }}
               transition={{
-                // eslint-disable-next-line react-hooks/purity
-                duration: 4 + Math.random() * 2,
+                duration: particle.duration,
                 repeat: Infinity,
-                // eslint-disable-next-line react-hooks/purity
-                delay: Math.random() * 2,
+                delay: particle.delay,
               }}
             />
           ))}

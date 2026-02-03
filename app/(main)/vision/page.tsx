@@ -172,6 +172,7 @@ const VisionPage = () => {
   ];
 
   // Fix for missing Scale and TrendingUp components
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const Scale = ({ className }: { className: string }) => (
     <svg
       className={className}
@@ -188,6 +189,7 @@ const VisionPage = () => {
     </svg>
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const TrendingUp = ({ className }: { className: string }) => (
     <svg
       className={className}
@@ -209,12 +211,12 @@ const VisionPage = () => {
       {/* Hero Banner with Bangladesh Flag Theme */}
       <motion.section
         style={{ opacity: headerOpacity, scale: headerScale }}
-        className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-[#006A4E] via-green-700 to-[#F42A41]"
+        className="relative min-h-[90vh] flex items-center overflow-hidden bg-linear-to-br from-[#006A4E] via-green-700 to-[#F42A41]"
       >
         {/* Flag pattern background */}
         <div className="absolute inset-0 opacity-20">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#006A4E] 60% to-transparent" />
-          <div className="absolute right-0 inset-y-0 w-2/5 bg-gradient-to-l from-[#F42A41] 60% to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-r from-[#006A4E] 60% to-transparent" />
+          <div className="absolute right-0 inset-y-0 w-2/5 bg-linear-to-l from-[#F42A41] 60% to-transparent" />
         </div>
 
         {/* Animated circles */}
@@ -266,7 +268,7 @@ const VisionPage = () => {
                   <br />ও <span className="text-yellow-200">মিশন</span>
                 </h1>
 
-                <div className="w-24 h-1.5 bg-gradient-to-r from-yellow-400 to-yellow-200 rounded-full" />
+                <div className="w-24 h-1.5 bg-linear-to-r from-yellow-400 to-yellow-200 rounded-full" />
               </motion.div>
 
               <motion.p
@@ -341,7 +343,7 @@ const VisionPage = () => {
                 <motion.div
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 3, repeat: Infinity }}
-                  className="absolute -top-4 -right-4 bg-gradient-to-br from-green-600 to-emerald-700 text-white px-4 py-2 rounded-lg shadow-xl"
+                  className="absolute -top-4 -right-4 bg-linear-to-br from-green-600 to-emerald-700 text-white px-4 py-2 rounded-lg shadow-xl"
                 >
                   <div className="flex items-center gap-2">
                     <Target className="w-4 h-4" />
@@ -352,7 +354,7 @@ const VisionPage = () => {
                 <motion.div
                   animate={{ y: [0, 10, 0] }}
                   transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
-                  className="absolute -bottom-4 -left-4 bg-gradient-to-br from-red-600 to-rose-700 text-white px-4 py-2 rounded-lg shadow-xl"
+                  className="absolute -bottom-4 -left-4 bg-linear-to-br from-red-600 to-rose-700 text-white px-4 py-2 rounded-lg shadow-xl"
                 >
                   <div className="flex items-center gap-2">
                     <Heart className="w-4 h-4" />
@@ -396,7 +398,7 @@ const VisionPage = () => {
                 className={`p-6 rounded-xl shadow-lg ${item.bgColor} border-2 border-gray-100`}
               >
                 <div
-                  className={`w-14 h-14 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center text-white mb-4`}
+                  className={`w-14 h-14 rounded-xl bg-linear-to-br ${item.color} flex items-center justify-center text-white mb-4`}
                 >
                   {item.icon}
                 </div>
@@ -411,7 +413,7 @@ const VisionPage = () => {
       </section>
 
       {/* Mission Pillars */}
-      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-20 bg-linear-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <motion.div
             initial="hidden"
@@ -441,7 +443,7 @@ const VisionPage = () => {
                 <div className="bg-white p-8 rounded-xl shadow-lg border-2 border-gray-100">
                   <div className="flex items-start gap-4">
                     <div
-                      className={`text-3xl font-bold bg-gradient-to-br ${pillar.gradient} bg-clip-text text-transparent`}
+                      className={`text-3xl font-bold bg-linear-to-br ${pillar.gradient} bg-clip-text text-transparent`}
                     >
                       {pillar.number}
                     </div>
@@ -460,7 +462,7 @@ const VisionPage = () => {
       </section>
 
       {/* Youth Targets Section */}
-      <section className="py-20 bg-gradient-to-r from-green-50 to-red-50">
+      <section className="py-20 bg-linear-to-r from-green-50 to-red-50">
         <div className="container mx-auto px-4">
           <motion.div
             initial="hidden"
@@ -487,7 +489,7 @@ const VisionPage = () => {
                 transition={{ delay: index * 0.1 }}
                 className="bg-white p-6 rounded-xl shadow-lg text-center border-2 border-gray-100"
               >
-                <div className="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-green-100 to-red-100 rounded-lg flex items-center justify-center">
+                <div className="w-12 h-12 mx-auto mb-3 bg-linear-to-br from-green-100 to-red-100 rounded-lg flex items-center justify-center">
                   <div className="text-green-600">{target.icon}</div>
                 </div>
                 <div className="text-2xl font-bold text-gray-900 mb-1">
@@ -526,7 +528,7 @@ const VisionPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-gradient-to-br from-green-50 to-red-50 p-6 rounded-xl shadow-lg border-2 border-gray-100"
+                className="bg-linear-to-br from-green-50 to-red-50 p-6 rounded-xl shadow-lg border-2 border-gray-100"
               >
                 <div className="text-4xl mb-4">{principle.icon}</div>
                 <h3 className="text-xl font-bold text-gray-800 mb-2">
@@ -540,7 +542,7 @@ const VisionPage = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 bg-gradient-to-r from-[#006A4E] via-green-600 to-[#F42A41]">
+      <section className="py-20 bg-linear-to-r from-[#006A4E] via-green-600 to-[#F42A41]">
         <div className="container mx-auto px-4">
           <motion.div
             initial="hidden"
@@ -568,7 +570,7 @@ const VisionPage = () => {
       </section>
 
       {/* Quote Section */}
-      <section className="py-16 bg-gradient-to-b from-white to-gray-50">
+      <section className="py-16 bg-linear-to-b from-white to-gray-50">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0 }}
@@ -576,17 +578,17 @@ const VisionPage = () => {
             viewport={{ once: true }}
             className="max-w-3xl mx-auto text-center space-y-6"
           >
-            <div className="text-5xl text-green-600/20">"</div>
+            <div className="text-5xl text-green-600/20"></div>
             <p className="text-xl sm:text-2xl text-gray-800 italic leading-relaxed">
               তরুণ প্রজন্মের হাত ধরেই গড়ে উঠবে নতুন বাংলাদেশ। তাদের স্বপ্নই হবে
               আমাদের পথচলার প্রেরণা।
             </p>
             <div className="flex items-center justify-center gap-4">
-              <div className="h-0.5 w-12 bg-gradient-to-r from-transparent to-green-600" />
+              <div className="h-0.5 w-12 bg-linear-to-r from-transparent to-green-600" />
               <div className="text-lg font-semibold text-red-600">
                 — মজিবুর রহমান ভূঁইয়া মঞ্জু
               </div>
-              <div className="h-0.5 w-12 bg-gradient-to-l from-transparent to-red-600" />
+              <div className="h-0.5 w-12 bg-linear-to-l from-transparent to-red-600" />
             </div>
           </motion.div>
         </div>
