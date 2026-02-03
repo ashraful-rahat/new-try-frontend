@@ -36,42 +36,43 @@ const HomeIntroSection = () => {
         >
           <div className="flex flex-col lg:flex-row items-center gap-8">
             {/* Left Side - Image */}
-            <motion.div variants={fadeInUp} className="lg:w-2/5">
+            <motion.div variants={fadeInUp} className="lg:w-2/5 w-full">
               <div className="relative">
-                {/* Decorative background elements */}
-                <div className="absolute -inset-4">
-                  <div className="absolute inset-0 bg-linear-to-br from-green-500/20 to-red-500/20 rounded-3xl blur-xl" />
+                {/* Decorative background elements - FIXED */}
+                <div className="absolute -inset-2 sm:-inset-3 lg:-inset-4">
+                  <div className="absolute inset-0 bg-linear-to-br from-green-500/20 to-red-500/20 rounded-2xl lg:rounded-3xl blur-lg lg:blur-xl" />
                 </div>
 
-                {/* Main image container */}
+                {/* Main image container - FIXED */}
                 <div className="relative z-10">
-                  <div className="relative w-full h-64 md:h-80 lg:h-96 rounded-2xl overflow-hidden border-8 border-white shadow-2xl">
+                  <div className="relative w-full h-56 sm:h-64 md:h-72 lg:h-80 xl:h-96 rounded-xl lg:rounded-2xl overflow-hidden border-4 sm:border-6 lg:border-8 border-white shadow-xl lg:shadow-2xl">
                     <Image
                       src="/image/mojnu1.jpg"
                       alt="মজিবুর রহমান ভূঁইয়া মঞ্জু"
                       fill
                       className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 50vw"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
                       priority
+                      quality={90}
                     />
 
-                    {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
+                    {/* Gradient overlay - FIXED */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/10 to-transparent" />
 
-                    {/* Badge on image */}
-                    <div className="absolute top-4 left-4 bg-linear-to-r from-green-600 to-red-600 text-white px-4 py-2 rounded-lg shadow-lg">
-                      <div className="flex items-center gap-2">
-                        <Shield className="w-4 h-4" />
-                        <span className="text-sm font-bold">
+                    {/* Badge on image - FIXED */}
+                    <div className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-gradient-to-r from-green-600 to-red-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg shadow-lg">
+                      <div className="flex items-center gap-1.5 sm:gap-2">
+                        <Shield className="w-3 h-3 sm:w-4 sm:h-4" />
+                        <span className="text-xs sm:text-sm font-bold">
                           এবি পার্টি চেয়ারম্যান
                         </span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Decorative dots */}
-                  <div className="absolute -bottom-4 -right-4 w-20 h-20 border-4 border-yellow-400/30 rounded-full" />
-                  <div className="absolute -top-4 -left-4 w-16 h-16 border-4 border-green-400/30 rounded-full" />
+                  {/* Decorative dots - FIXED */}
+                  <div className="absolute -bottom-3 -right-3 sm:-bottom-4 sm:-right-4 w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 border-2 sm:border-3 lg:border-4 border-yellow-400/20 lg:border-yellow-400/30 rounded-full" />
+                  <div className="absolute -top-3 -left-3 sm:-top-4 sm:-left-4 w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 border-2 sm:border-3 lg:border-4 border-green-400/20 lg:border-green-400/30 rounded-full" />
                 </div>
               </div>
             </motion.div>
