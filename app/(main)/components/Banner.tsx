@@ -51,7 +51,7 @@ const Banner = () => {
   };
 
   return (
-    <div className="relative w-full h-150 md:h-150 lg:h-197.5 overflow-hidden bg-gray-900">
+    <div className="relative w-full h-[70vh] sm:h-[75vh] md:h-[80vh] lg:h-[85vh] xl:h-screen overflow-hidden bg-gray-900">
       {/* Slides */}
       <AnimatePresence mode="wait">
         <motion.div
@@ -68,33 +68,34 @@ const Banner = () => {
               src={slides[currentSlide].image}
               alt={slides[currentSlide].title}
               fill
-              className="object-cover"
+              className="object-cover object-center"
               priority
               quality={100}
+              sizes="100vw"
             />
             {/* Dark Overlay */}
-            <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/50 to-transparent" />
-            <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
           </div>
 
           {/* Content */}
-          <div className="relative h-full container mx-auto px-4 flex items-center">
+          <div className="relative h-full container mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
             <div className="max-w-3xl text-white">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
-                className="space-y-6"
+                className="space-y-4 sm:space-y-6"
               >
                 {/* Subtitle Badge */}
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 }}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-[#006A4E]/80 backdrop-blur-sm rounded-full border-2 border-white/30"
+                  className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-[#006A4E]/80 backdrop-blur-sm rounded-full border-2 border-white/30"
                 >
                   <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-                  <span className="text-sm md:text-base font-bold">
+                  <span className="text-xs sm:text-sm md:text-base font-bold">
                     {slides[currentSlide].subtitle}
                   </span>
                 </motion.div>
@@ -104,7 +105,7 @@ const Banner = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight"
                 >
                   {slides[currentSlide].title}
                 </motion.h1>
@@ -114,7 +115,7 @@ const Banner = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
-                  className="text-lg md:text-2xl text-white/90 leading-relaxed max-w-2xl"
+                  className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 leading-relaxed max-w-2xl"
                 >
                   {slides[currentSlide].description}
                 </motion.p>
@@ -124,19 +125,19 @@ const Banner = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
-                  className="flex flex-wrap gap-4 pt-4"
+                  className="flex flex-wrap gap-3 sm:gap-4 pt-2 sm:pt-4"
                 >
                   <motion.button
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-8 py-4 bg-[#F42A41] text-white rounded-xl font-bold text-lg shadow-2xl hover:bg-[#d91f35] transition-all"
+                    className="px-6 sm:px-8 py-3 sm:py-4 bg-[#F42A41] text-white rounded-xl font-bold text-base sm:text-lg shadow-2xl hover:bg-[#d91f35] transition-all"
                   >
                     আরও জানুন
                   </motion.button>
                   <motion.button
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-8 py-4 bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white rounded-xl font-bold text-lg hover:bg-white/20 transition-all"
+                    className="px-6 sm:px-8 py-3 sm:py-4 bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white rounded-xl font-bold text-base sm:text-lg hover:bg-white/20 transition-all"
                   >
                     যোগ দিন
                   </motion.button>
@@ -145,9 +146,9 @@ const Banner = () => {
                 {/* Decorative Line */}
                 <motion.div
                   initial={{ width: 0 }}
-                  animate={{ width: "200px" }}
+                  animate={{ width: "12rem" }}
                   transition={{ delay: 0.7, duration: 0.8 }}
-                  className="h-1 bg-linear-to-r from-[#006A4E] via-white to-[#F42A41] rounded-full"
+                  className="h-1 bg-gradient-to-r from-[#006A4E] via-white to-[#F42A41] rounded-full"
                 />
               </motion.div>
             </div>
@@ -156,28 +157,30 @@ const Banner = () => {
       </AnimatePresence>
 
       {/* Navigation Arrows */}
-      <div className="absolute inset-0 flex items-center justify-between px-4 md:px-8 pointer-events-none">
+      <div className="absolute inset-0 flex items-center justify-between px-2 sm:px-4 md:px-8 pointer-events-none">
         <motion.button
           whileHover={{ scale: 1.1, x: -5 }}
           whileTap={{ scale: 0.9 }}
           onClick={prevSlide}
-          className="pointer-events-auto w-12 h-12 md:w-16 md:h-16 bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all shadow-xl"
+          className="pointer-events-auto w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all shadow-xl"
+          aria-label="Previous slide"
         >
-          <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
+          <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8" />
         </motion.button>
 
         <motion.button
           whileHover={{ scale: 1.1, x: 5 }}
           whileTap={{ scale: 0.9 }}
           onClick={nextSlide}
-          className="pointer-events-auto w-12 h-12 md:w-16 md:h-16 bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all shadow-xl"
+          className="pointer-events-auto w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all shadow-xl"
+          aria-label="Next slide"
         >
-          <ChevronRight className="w-6 h-6 md:w-8 md:h-8" />
+          <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8" />
         </motion.button>
       </div>
 
       {/* Slide Indicators */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex items-center gap-3 z-20">
+      <div className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 flex items-center gap-2 sm:gap-3 z-20">
         {slides.map((_, index) => (
           <motion.button
             key={index}
@@ -185,14 +188,15 @@ const Banner = () => {
             whileHover={{ scale: 1.2 }}
             whileTap={{ scale: 0.9 }}
             className={`relative transition-all duration-300 ${
-              currentSlide === index ? "w-12" : "w-3"
+              currentSlide === index ? "w-10 sm:w-12" : "w-3"
             }`}
+            aria-label={`Go to slide ${index + 1}`}
           >
             {currentSlide === index ? (
-              <div className="h-3 bg-linear-to-r from-[#006A4E] via-white to-[#F42A41] rounded-full shadow-lg" />
+              <div className="h-2.5 sm:h-3 bg-gradient-to-r from-[#006A4E] via-white to-[#F42A41] rounded-full shadow-lg" />
             ) : (
               <Circle
-                className="w-3 h-3 text-white/60 hover:text-white transition-colors"
+                className="w-2.5 sm:w-3 h-2.5 sm:h-3 text-white/60 hover:text-white transition-colors"
                 fill="currentColor"
               />
             )}
@@ -200,19 +204,12 @@ const Banner = () => {
         ))}
       </div>
 
-      {/* Slide Counter */}
-      <div className="absolute top-8 right-8 bg-black/30 backdrop-blur-md px-6 py-3 rounded-full border border-white/20">
-        <span className="text-white font-bold text-lg">
-          {currentSlide + 1} / {slides.length}
-        </span>
-      </div>
-
       {/* Animated Background Particles */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {[...Array(15)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 bg-white/20 rounded-full"
+            className="absolute w-1.5 sm:w-2 h-1.5 sm:h-2 bg-white/20 rounded-full"
             style={{
               left: `${(i * 7.3 + 10) % 100}%`,
               top: `${(i * 9.7 + 15) % 100}%`,
