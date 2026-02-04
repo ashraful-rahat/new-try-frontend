@@ -148,6 +148,7 @@ const Navbar = () => {
     { name: "নেতা সম্পর্কে", href: "/about", icon: <User size={20} /> },
     { name: "আমার ভিশন", href: "/vision", icon: <Target size={20} /> },
     { name: "নোটিশ", href: "/notices", icon: <Bell size={20} /> },
+    { name: "ক্যাম্পেইন", href: "/campaign", icon: <Target size={20} /> },
     { name: "অভিযোগ", href: "/complaints", icon: <FileWarning size={20} /> },
   ];
 

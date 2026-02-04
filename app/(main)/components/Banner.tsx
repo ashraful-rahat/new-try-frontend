@@ -10,7 +10,7 @@ const Banner = () => {
 
   const slides = [
     {
-      image: "/image/banner.jpg",
+      image: "/image/banner2.jpg",
       title: "স্বাগতম",
       subtitle: "আমার বাংলাদেশ পার্টি",
       description: "জনগণের অধিকার, স্বচ্ছতা, ন্যায় এবং গণতান্ত্রিক মূল্যবোধ",
@@ -22,7 +22,7 @@ const Banner = () => {
       description: "সবার জন্য সমান সুযোগ এবং উন্নয়ন",
     },
     {
-      image: "/image/banner2.jpg",
+      image: "/image/banner.jpg",
       title: "পরিবর্তনের প্রতিশ্রুতি",
       subtitle: "নতুন দিনের স্বপ্ন",
       description: "দুর্নীতিমুক্ত, সমৃদ্ধ বাংলাদেশ",
