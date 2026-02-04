@@ -125,7 +125,7 @@ const NoticesPage = () => {
     }
   };
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString: string | Date) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("bn-BD", {
       year: "numeric",
@@ -166,7 +166,7 @@ const NoticesPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
       {/* Hero Section */}
       <section className="relative py-24 bg-gradient-to-br from-[#006A4E] via-emerald-700 to-[#F42A41] overflow-hidden">
         {/* Background pattern */}
@@ -316,7 +316,7 @@ const NoticesPage = () => {
                   onClick={() => setSelectedType(filter.value)}
                   className={`px-6 py-3 rounded-xl font-bold text-base transition-all shadow-md ${
                     selectedType === filter.value
-                      ? "bg-gradient-to-r from-[#006A4E] to-[#F42A41] text-white shadow-lg scale-105"
+                      ? "bg-linear-to-r from-[#006A4E] to-[#F42A41] text-white shadow-lg scale-105"
                       : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                   }`}
                 >
@@ -390,16 +390,14 @@ const NoticesPage = () => {
                               scale: [1, 1.1, 1],
                             }}
                             transition={{ duration: 2, repeat: Infinity }}
-                            className="bg-gradient-to-br from-yellow-400 to-orange-500 text-white p-3 rounded-full shadow-2xl"
+                            className="bg-linear-to-br from-yellow-400 to-orange-500 text-white p-3 rounded-full shadow-2xl"
                           >
                             <Star className="w-5 h-5" fill="currentColor" />
                           </motion.div>
                         </div>
                       )}
 
-                      <div
-                        className={`h-3 bg-gradient-to-r ${typeColors.bg}`}
-                      />
+                      <div className={`h-3 bg-linear-to-r ${typeColors.bg}`} />
 
                       <div className="p-8">
                         <div className="flex items-center gap-3 mb-5">

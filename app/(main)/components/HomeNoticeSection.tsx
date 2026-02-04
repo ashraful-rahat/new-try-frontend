@@ -88,18 +88,29 @@ const HomeNoticeSection = () => {
     }
   };
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("bn-BD", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
+  const formatDate = (dateInput: string | Date) => {
+    try {
+      const date =
+        typeof dateInput === "string" ? new Date(dateInput) : dateInput;
+
+      if (isNaN(date.getTime())) {
+        return "তারিখ নেই";
+      }
+
+      return date.toLocaleDateString("bn-BD", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+    } catch (error) {
+      console.error("Date format error:", error);
+      return "তারিখ নেই";
+    }
   };
 
   if (loading) {
     return (
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-gray-100">
+      <section className="py-20 bg-linear-to-br from-gray-50 to-gray-100">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <div className="animate-spin w-16 h-16 border-4 border-[#006A4E] border-t-transparent rounded-full mx-auto mb-4" />
@@ -117,10 +128,10 @@ const HomeNoticeSection = () => {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
+    <section className="py-20 bg-linear-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
       {/* Background decorations */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-[#006A4E]/10 to-transparent rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-[#F42A41]/10 to-transparent rounded-full blur-3xl" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-linear-to-br from-[#006A4E]/10 to-transparent rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-linear-to-tr from-[#F42A41]/10 to-transparent rounded-full blur-3xl" />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
@@ -134,7 +145,7 @@ const HomeNoticeSection = () => {
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-100 to-red-100 rounded-full mb-6 shadow-lg"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-linear-to-r from-green-100 to-red-100 rounded-full mb-6 shadow-lg"
           >
             <motion.div
               animate={{ rotate: [0, 15, -15, 0] }}
@@ -147,7 +158,7 @@ const HomeNoticeSection = () => {
             </span>
           </motion.div>
 
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-[#006A4E] via-emerald-600 to-[#F42A41] bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-linear-to-r from-[#006A4E] via-emerald-600 to-[#F42A41] bg-clip-text text-transparent">
             গুরুত্বপূর্ণ ঘোষণা
           </h2>
           <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
@@ -175,7 +186,7 @@ const HomeNoticeSection = () => {
                     <motion.div
                       animate={{ rotate: [0, 15, -15, 0], scale: [1, 1.1, 1] }}
                       transition={{ duration: 2, repeat: Infinity }}
-                      className="bg-gradient-to-br from-yellow-400 to-orange-500 text-white p-3 rounded-full shadow-2xl"
+                      className="bg-linear-to-br from-yellow-400 to-orange-500 text-white p-3 rounded-full shadow-2xl"
                     >
                       <Star className="w-5 h-5" fill="currentColor" />
                     </motion.div>
@@ -183,7 +194,7 @@ const HomeNoticeSection = () => {
                 )}
 
                 {/* Gradient top bar */}
-                <div className={`h-3 bg-gradient-to-r ${typeColors.bg}`} />
+                <div className={`h-3 bg-linear-to-r ${typeColors.bg}`} />
 
                 <div className="p-8">
                   {/* Type badge */}
@@ -245,7 +256,7 @@ const HomeNoticeSection = () => {
                   {/* Read more link */}
                   <Link
                     href={`/notices/${notice._id}`}
-                    className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-[#006A4E] to-emerald-600 text-white rounded-xl font-bold hover:shadow-lg hover:scale-105 transition-all group/link"
+                    className="inline-flex items-center gap-3 px-6 py-3 bg-linear-to-r from-[#006A4E] to-emerald-600 text-white rounded-xl font-bold hover:shadow-lg hover:scale-105 transition-all group/link"
                   >
                     <span>বিস্তারিত পড়ুন</span>
                     <ArrowRight className="w-5 h-5 group-hover/link:translate-x-1 transition-transform" />
@@ -254,7 +265,7 @@ const HomeNoticeSection = () => {
 
                 {/* Decorative corner */}
                 <div
-                  className={`absolute -bottom-16 -right-16 w-40 h-40 bg-gradient-to-br ${typeColors.bg} rounded-full opacity-10 group-hover:scale-150 transition-transform duration-700`}
+                  className={`absolute -bottom-16 -right-16 w-40 h-40 bg-linear-to-br ${typeColors.bg} rounded-full opacity-10 group-hover:scale-150 transition-transform duration-700`}
                 />
 
                 {/* Animated particles */}
@@ -277,7 +288,7 @@ const HomeNoticeSection = () => {
             <motion.button
               whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.95 }}
-              className="group px-12 py-6 bg-gradient-to-r from-[#006A4E] to-[#F42A41] text-white rounded-2xl font-bold text-xl shadow-2xl hover:shadow-3xl transition-all inline-flex items-center gap-4"
+              className="group px-12 py-6 bg-linear-to-r from-[#006A4E] to-[#F42A41] text-white rounded-2xl font-bold text-xl shadow-2xl hover:shadow-3xl transition-all inline-flex items-center gap-4"
             >
               <Bell className="w-7 h-7" />
               <span>সকল নোটিশ দেখুন</span>
