@@ -3,7 +3,7 @@
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "skipLibCheck": true,
+    "skipLibCheck": true, // ✅ ইতিমধ্যে true আছে
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -26,9 +26,12 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
+    ".next/types/**/*.ts", // ✅ Next.js generated types include করা আছে
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    ".next" // ✅ .next ফোল্ডার exclude করুন
+  ]
 }

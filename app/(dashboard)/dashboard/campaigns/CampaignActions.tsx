@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+
 interface CampaignActionsProps {
   campaign?: Campaign | null;
   open: boolean;
@@ -48,7 +49,7 @@ const CampaignActions: React.FC<CampaignActionsProps> = ({
     description: "",
     category: "",
     type: "VOLUNTEER",
-    startDate: new Date().toISOString().split("T")[0],
+    startDate: new Date(),
     location: "",
     volunteerLimit: undefined,
     priority: 0,
@@ -71,6 +72,16 @@ const CampaignActions: React.FC<CampaignActionsProps> = ({
     "অন্যান্য",
   ];
 
+  // Helper function to format date to YYYY-MM-DD for input
+  const formatDateForInput = (date: Date): string => {
+    return date.toISOString().split("T")[0];
+  };
+
+  // Helper function to parse date from input string
+  const parseDateFromInput = (dateString: string): Date => {
+    return new Date(dateString);
+  };
+
   // Initialize form with campaign data for edit mode
   useEffect(() => {
     if (mode === "edit" && campaign) {
@@ -79,10 +90,8 @@ const CampaignActions: React.FC<CampaignActionsProps> = ({
         description: campaign.description,
         category: campaign.category,
         type: campaign.type,
-        startDate: new Date(campaign.startDate).toISOString().split("T")[0],
-        endDate: campaign.endDate
-          ? new Date(campaign.endDate).toISOString().split("T")[0]
-          : undefined,
+        startDate: new Date(campaign.startDate),
+        endDate: campaign.endDate ? new Date(campaign.endDate) : undefined,
         location: campaign.location || "",
         volunteerLimit: campaign.volunteerLimit,
         priority: campaign.priority,
@@ -99,7 +108,7 @@ const CampaignActions: React.FC<CampaignActionsProps> = ({
         description: "",
         category: "",
         type: "VOLUNTEER",
-        startDate: new Date().toISOString().split("T")[0],
+        startDate: new Date(),
         location: "",
         volunteerLimit: undefined,
         priority: 0,
@@ -121,6 +130,13 @@ const CampaignActions: React.FC<CampaignActionsProps> = ({
       setFormData((prev) => ({
         ...prev,
         [name]: numValue,
+      }));
+    } else if (name === "startDate" || name === "endDate") {
+      // Handle date inputs
+      const dateValue = value ? parseDateFromInput(value) : undefined;
+      setFormData((prev) => ({
+        ...prev,
+        [name]: dateValue,
       }));
     } else {
       setFormData((prev) => ({
@@ -196,6 +212,7 @@ const CampaignActions: React.FC<CampaignActionsProps> = ({
 
     if (
       formData.endDate &&
+      formData.startDate &&
       new Date(formData.endDate) < new Date(formData.startDate)
     ) {
       sweetAlert.error("ত্রুটি", "শেষের তারিখ শুরুর তারিখের আগে হতে পারবে না");
@@ -261,7 +278,7 @@ const CampaignActions: React.FC<CampaignActionsProps> = ({
         {/* Modal */}
         <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
           {/* Header */}
-          <div className="bg-gradient-to-r from-green-700 to-green-800 px-6 py-4">
+          <div className="bg-linear-to-r from-green-700 to-green-800 px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="h-10 w-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
@@ -300,7 +317,7 @@ const CampaignActions: React.FC<CampaignActionsProps> = ({
           >
             <div className="p-6 space-y-6">
               {/* Basic Information */}
-              <div className="bg-gradient-to-br from-green-50 to-white border border-green-200 rounded-xl p-5">
+              <div className="bg-linear-to-br from-green-50 to-white border border-green-200 rounded-xl p-5">
                 <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
                   <FileText className="h-5 w-5 text-green-600" />
                   মৌলিক তথ্য
@@ -414,7 +431,7 @@ const CampaignActions: React.FC<CampaignActionsProps> = ({
               </div>
 
               {/* Date & Location */}
-              <div className="bg-gradient-to-br from-blue-50 to-white border border-blue-200 rounded-xl p-5">
+              <div className="bg-linear-to-br from-blue-50 to-white border border-blue-200 rounded-xl p-5">
                 <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
                   <Calendar className="h-5 w-5 text-blue-600" />
                   তারিখ ও অবস্থান
@@ -429,7 +446,11 @@ const CampaignActions: React.FC<CampaignActionsProps> = ({
                     <input
                       type="date"
                       name="startDate"
-                      value={formData.startDate as string}
+                      value={
+                        formData.startDate
+                          ? formatDateForInput(formData.startDate)
+                          : ""
+                      }
                       onChange={handleInputChange}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition"
                       required
@@ -444,7 +465,11 @@ const CampaignActions: React.FC<CampaignActionsProps> = ({
                     <input
                       type="date"
                       name="endDate"
-                      value={(formData.endDate as string) || ""}
+                      value={
+                        formData.endDate
+                          ? formatDateForInput(formData.endDate)
+                          : ""
+                      }
                       onChange={handleInputChange}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition"
                     />
@@ -471,7 +496,7 @@ const CampaignActions: React.FC<CampaignActionsProps> = ({
               </div>
 
               {/* Volunteer & Images */}
-              <div className="bg-gradient-to-br from-purple-50 to-white border border-purple-200 rounded-xl p-5">
+              <div className="bg-linear-to-br from-purple-50 to-white border border-purple-200 rounded-xl p-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Volunteer Limit */}
                   <div>
@@ -566,7 +591,7 @@ const CampaignActions: React.FC<CampaignActionsProps> = ({
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-6 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 font-medium transition-all disabled:opacity-50 flex items-center gap-2"
+                  className="px-6 py-2 bg-linear-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 font-medium transition-all disabled:opacity-50 flex items-center gap-2"
                 >
                   {loading ? (
                     <>
@@ -590,7 +615,5 @@ const CampaignActions: React.FC<CampaignActionsProps> = ({
     </div>
   );
 };
-
-// Import missing icon
 
 export default CampaignActions;

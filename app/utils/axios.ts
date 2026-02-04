@@ -1,4 +1,24 @@
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
+
+// Custom Error Interface তৈরি করুন
+interface CustomError {
+  message: string;
+  status?: number;
+  data?: unknown;
+}
+
+// Error throw করার ফাংশন
+const createApiError = (
+  message: string,
+  status?: number,
+  data?: unknown,
+): CustomError => {
+  return {
+    message,
+    status,
+    data,
+  };
+};
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api",
@@ -26,14 +46,12 @@ axiosInstance.interceptors.request.use(
   },
 );
 
-// Response interceptor - SIMPLIFIED VERSION
+// Response interceptor
 axiosInstance.interceptors.response.use(
-  (response) => {
-    // শুধু সফল রেসপন্স রিটার্ন করুন
+  (response: AxiosResponse) => {
     return response;
   },
-  (error) => {
-    // Error handle করুন
+  (error: AxiosError) => {
     let errorMessage = "সার্ভারে সমস্যা";
 
     if (error.code === "ECONNREFUSED") {
@@ -41,20 +59,20 @@ axiosInstance.interceptors.response.use(
     } else if (error.code === "NETWORK_ERROR") {
       errorMessage = "নেটওয়ার্ক সমস্যা";
     } else if (error.response) {
-      // সার্ভার রেসপন্স দিয়েছে
+      // টাইপ সেফভাবে data access
+      const responseData = error.response.data as { message?: string };
       errorMessage =
-        error.response.data?.message || `সার্ভার এরর: ${error.response.status}`;
+        responseData?.message || `সার্ভার এরর: ${error.response.status}`;
     } else if (error.request) {
-      // রিকুয়েস্ট পাঠানো হয়েছে কিন্তু রেসপন্স আসেনি
       errorMessage = "সার্ভার রেসপন্স দেয়নি";
     }
 
-    // Error object create করুন
-    const customError = new Error(errorMessage);
-
-    customError.status = error.response?.status;
-
-    customError.data = error.response?.data;
+    // Custom Error object তৈরি করুন
+    const customError = createApiError(
+      errorMessage,
+      error.response?.status,
+      error.response?.data,
+    );
 
     // Development mode তে শুধু log দেখান
     if (process.env.NODE_ENV === "development") {
